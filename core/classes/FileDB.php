@@ -25,4 +25,14 @@ class FileDB  {
        return false;
     }
 
+    public function load(){
+        if (file_exists($this->file_name)) {
+            $this->data = json_decode(file_get_contents($this->file_name), true);
+        } else {
+            $this->data =[];
+        }
+    }
+
+
+
 }

@@ -7,7 +7,8 @@ $db = new \Core\FileDB('../app/data/db.txt');
 $data_array = ['lol', 'rofl'];
 $db->setData($data_array);
 $db->save();
-
+$db->load();
+var_dump($db);
 ?>
 <html>
     <head>
