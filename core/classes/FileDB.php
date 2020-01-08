@@ -33,6 +33,12 @@ class FileDB  {
         }
     }
 
-
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
 
 }
