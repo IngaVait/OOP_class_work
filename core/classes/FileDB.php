@@ -2,7 +2,8 @@
 
 namespace Core;
 
-class FileDB  {
+class FileDB
+{
 
     private $file_name;
     private $data;
@@ -12,24 +13,27 @@ class FileDB  {
         $this->file_name = $file_name;
     }
 
-    public  function setData($data){
+    public function setData($data)
+    {
         $this->data = $data;
     }
 
-    public function save(){
+    public function save()
+    {
         $encoded_array = json_encode($this->data);
-       $bytes_written = file_put_contents($this->file_name, $encoded_array);
-       if($bytes_written !== false){
-           return true;
-       }
-       return false;
+        $bytes_written = file_put_contents($this->file_name, $encoded_array);
+        if ($bytes_written !== false) {
+            return true;
+        }
+        return false;
     }
 
-    public function load(){
+    public function load()
+    {
         if (file_exists($this->file_name)) {
             $this->data = json_decode(file_get_contents($this->file_name), true);
         } else {
-            $this->data =[];
+            $this->data = [];
         }
     }
 
@@ -40,5 +44,20 @@ class FileDB  {
     {
         return $this->data;
     }
+
+
+    public function createTable($table_name){
+       if(!$this->tableExists($table_name)) {
+           $this->data[$table_name] = [];
+           return true;
+       }
+       return false;
+    }
+
+    public function tableExists($table_name){
+        return isset($this->data[$table_name]);
+    }
+
+//    public function
 
 }

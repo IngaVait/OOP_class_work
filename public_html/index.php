@@ -4,10 +4,11 @@ require '../bootloader.php';
 require ROOT . '/core/classes/FileDB.php';
 
 $db = new \Core\FileDB('../app/data/db.txt');
-$data_array = ['lol', 'rofl'];
-$db->setData($data_array);
-$db->save();
-$db->load();
+$db->getData();
+
+$db->createTable('users');
+$db->createTable('products');
+$db->createTable('sells');
 var_dump($db);
 ?>
 <html>
