@@ -9,7 +9,13 @@ $db->getData();
 $db->createTable('users');
 $db->createTable('products');
 $db->createTable('sells');
-var_dump($db);
+$db->createTable('leads');
+$db->truncateTable('leads');
+
+$db->insertRow('users', ['Inga', 'Vait']);
+$db->insertRow('users', ['Nida', 'Vait']);
+
+var_dump($db->getData());
 ?>
 <html>
     <head>
