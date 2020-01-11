@@ -46,41 +46,61 @@ class FileDB
     }
 
 
-    public function createTable($table_name){
-       if(!$this->tableExists($table_name)) {
-           $this->data[$table_name] = [];
-           return true;
-       }
-       return false;
-    }
-
-    public function tableExists($table_name){
-        return isset($this->data[$table_name]);
-    }
-
-    public function dropTable($table_name){
-        if($this->tableExists($table_name)){
-            unset($this->data[$table_name]);
-            return true;
-        }
-        return false;
-    }
-
-    public function truncateTable($table_name){
-        if($this->tableExists($table_name)){
+    public function createTable($table_name)
+    {
+        if (!$this->tableExists($table_name)) {
             $this->data[$table_name] = [];
             return true;
         }
         return false;
     }
 
-    public function insertRow($table_name, $row, $row_id = null ){
-        if($this->tableExists($table_name)){
-            $this->data[$table_name][$row_id ?? (count($this->data[$table_name])) + 1 ] = $row;
+    public function tableExists($table_name)
+    {
+        return isset($this->data[$table_name]);
+    }
+
+    public function dropTable($table_name)
+    {
+        if ($this->tableExists($table_name)) {
+            unset($this->data[$table_name]);
+            return true;
+        }
+        return false;
+    }
+
+    public function truncateTable($table_name)
+    {
+        if ($this->tableExists($table_name)) {
+            $this->data[$table_name] = [];
+            return true;
+        }
+        return false;
+    }
+
+    public function insertRow($table_name, $row, $row_id = null)
+    {
+        if ($this->tableExists($table_name)) {
+            $this->data[$table_name][$row_id ?? (count($this->data[$table_name])) + 1] = $row;
             $row_id = array_key_last($this->data[$table_name]);
             return $row_id;
         }
         return false;
     }
+
+    public function rowExists($table_name, $row_id)
+    {
+        return isset($this->data[$table_name][$row_id]);
+    }
+
+    public function insertRowIfNotExists($table_name, $row, $row_id)
+    {
+        if (!$this->rowExists($table_name, $row_id)) {
+            $this->insertRow($table_name, $row, $row_id);
+            return $row_id;
+        }
+        return false;
+    }
+
 
 }

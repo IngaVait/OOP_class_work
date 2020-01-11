@@ -14,8 +14,10 @@ $db->truncateTable('leads');
 
 $db->insertRow('users', ['Inga', 'Vait']);
 $db->insertRow('users', ['Nida', 'Vait']);
+$db->insertRow('users', ['Petras', 'Vait'], 0);
+$db->insertRowIfNotExists('users', ['Testas', 'mazas'], 1);
 
-var_dump($db->getData());
+var_dump($db->insertRowIfNotExists('users', ['Testas', 'mazas'], 1));
 ?>
 <html>
     <head>
