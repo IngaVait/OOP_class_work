@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Database;
 
 class FileDB
 {
@@ -100,6 +100,60 @@ class FileDB
             return $row_id;
         }
         return false;
+    }
+
+    public function updateRow($table_name, $row, $row_id)
+    {
+        if ($this->rowExists($table_name, $row_id)) {
+            $this->data[$table_name][$row_id] = $row;
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteRow($table_name, $row_id)
+    {
+        if ($this->rowExists($table_name, $row_id)) {
+            unset($this->data[$table_name][$row_id]);
+            return true;
+        }
+        return false;
+    }
+
+    public function getRow($table_name, $row_id)
+    {
+        return $this->data[$table_name][$row_id];
+    }
+
+    /**
+     * @param string $table
+     * @param array $conditions
+     * @return array|bool
+     */
+    public function getRowsWhere(string $table, array $conditions)
+    {
+        if (!$this->tableExists($table)) return false;
+        $ret = [];
+        foreach ($this->data[$table] as $index => $row) {
+            $status = true;
+            foreach ($conditions as $con_key => $con_value) {
+                var_dump($con_value);
+                if ($con_key === 'row_id') {
+                    if ($index != $con_value) $status = false;
+                } elseif ($row[$con_key] !== $con_value) {
+                    $status = false;
+                }
+            }
+            if ($status) $ret[$index] = $row;
+        }
+        return $ret;
+    }
+
+//    public function insertData($table_name, )
+
+    public function __destruct()
+    {
+        $this->save();
     }
 
 

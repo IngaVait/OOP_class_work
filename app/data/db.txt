@@ -1,1 +1,1 @@
-["lol","rofl"]
+{"users":{"1":{"username":"Testas","email":"bamba@testas.bam","password":"msalkdha","timestamp":1578989344},"2":{"username":"mazas","email":"bamba@testas.bam","password":"msalkdha","timestamp":1578989344}}}
